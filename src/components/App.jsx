@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import css from './App.module.css';
-import { Searchbar } from './Searchbar/Searchbar';
+import Searchbar from './Searchbar/Searchbar';
+import ImageGallery from './ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
@@ -9,7 +10,7 @@ export class App extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     const { value } = evt.target.serchInput;
-    this.setState({ filter: value });
+    this.setState({ searchQuarry: value });
     console.log(value);
   };
   render() {
@@ -26,7 +27,7 @@ export class App extends Component {
         }}
       >
         <Searchbar onSubmit={this.handleSubmit} />
-        React homework template
+        <ImageGallery />
       </div>
     );
   }
