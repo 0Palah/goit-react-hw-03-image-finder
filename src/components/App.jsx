@@ -25,10 +25,9 @@ export class App extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    this.setState({ images: [], page: 1 });
+    this.setState({ images: [] });
     const { value } = evt.target.serchInput;
-    // закинути в стейт ? page: 1
-    this.setState({ searchQuarry: value });
+    this.setState({ searchQuarry: value, page: 1 });
   };
 
   getFetchedImg = async () => {
@@ -46,7 +45,13 @@ export class App extends Component {
       }));
     } catch (err) {
       this.setState({ error: err });
+    } finally {
+      this.setState({ isLoading: false });
     }
+  };
+
+  handleToggleModal = largeImageURL => {
+    console.log(largeImageURL);
   };
 
   render() {
@@ -54,7 +59,10 @@ export class App extends Component {
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery images={images}></ImageGallery>
+        <ImageGallery
+          images={images}
+          onClick={this.handleToggleModal}
+        ></ImageGallery>
         <Button></Button>
       </div>
     );

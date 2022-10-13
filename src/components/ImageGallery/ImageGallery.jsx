@@ -5,7 +5,7 @@ import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
 export default class ImageGallery extends Component {
   render() {
-    const { images } = this.props;
+    const { images, onClick } = this.props;
     return (
       <ul className={css.ImageGallery}>
         {' '}
@@ -15,6 +15,7 @@ export default class ImageGallery extends Component {
               key={el.webformatURL}
               webformatURL={el.webformatURL}
               largeImageURL={el.largeImageURL}
+              onClick={onClick}
             />
           );
         })}
