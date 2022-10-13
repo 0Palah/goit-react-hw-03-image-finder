@@ -3,6 +3,7 @@ import css from './App.module.css';
 import getFetchApi from './services/fetchApi';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
 // import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
@@ -54,7 +55,7 @@ export class App extends Component {
       <div className={css.App}>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery images={images}></ImageGallery>
-        {/* <Button></Button> */}
+        <Button></Button>
       </div>
     );
   }
