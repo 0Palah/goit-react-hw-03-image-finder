@@ -16,6 +16,7 @@ export class App extends Component {
     showModal: false,
     error: null,
     modalImageURL: '',
+    totalHits: null,
   };
 
   componentDidUpdate(_, prevState) {
@@ -34,15 +35,19 @@ export class App extends Component {
   getFetchedImg = async () => {
     this.setState({ isLoading: true });
     try {
-      const { page, searchQuarry } = this.state;
+      const { page, searchQuarry, totalHits } = this.state;
       const response = await getFetchApi({
         page: page,
         searchQuarry: searchQuarry,
       });
+
       console.log(response);
+      console.log(response.totalHits);
+
       this.setState(prevState => ({
         images: [...prevState.images, ...response.hits],
         page: prevState.page + 1,
+        totalHits: response.totalHits,
       }));
     } catch (err) {
       this.setState({ error: err });
@@ -59,7 +64,12 @@ export class App extends Component {
   };
 
   render() {
-    const { images, showModal, modalImageURL } = this.state;
+    const { images, showModal, modalImageURL, totalHits } = this.state;
+
+    console.log(totalHits);
+    console.log(images.length);
+    console.log(images);
+
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -67,7 +77,9 @@ export class App extends Component {
           images={images}
           onClick={this.handleToggleModal}
         ></ImageGallery>
-        <Button onClick={this.getFetchedImg}></Button>
+        {images.length < totalHits && (
+          <Button onClick={this.getFetchedImg}></Button>
+        )}
         {showModal && (
           <Modal imgUrl={modalImageURL} toggleModal={this.handleToggleModal} />
         )}
