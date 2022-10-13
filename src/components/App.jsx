@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import css from './App.module.css';
+import getFetchApi from './services/fetchApi';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
-import { getFetchApi } from './services/fetchApi';
+// import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
   state = {
+    images: [],
     searchQuarry: '',
-    isLoading: false,
     page: 1,
+    isLoading: false,
+    showModal: false,
+    error: null,
+    modalImageURL: '',
   };
 
   componentDidUpdate(_, prevState) {
@@ -19,9 +24,10 @@ export class App extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
+    this.setState({ images: [], page: 1 });
     const { value } = evt.target.serchInput;
+    // закинути в стейт ? page: 1
     this.setState({ searchQuarry: value });
-    console.log(value);
   };
 
   getFetchedImg = async () => {
@@ -32,27 +38,23 @@ export class App extends Component {
         page: page,
         searchQuarry: searchQuarry,
       });
-      // console.log(response);
+      console.log(response);
+      this.setState(prevState => ({
+        images: [...prevState.images, ...response.hits],
+        page: prevState.page + 1,
+      }));
     } catch (err) {
-      console.log(err);
+      this.setState({ error: err });
     }
   };
 
   render() {
+    const { images } = this.state;
     return (
-      <div
-        className={css.App}
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
+      <div className={css.App}>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery />
+        <ImageGallery images={images}></ImageGallery>
+        {/* <Button></Button> */}
       </div>
     );
   }
