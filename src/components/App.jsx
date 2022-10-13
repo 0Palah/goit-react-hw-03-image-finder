@@ -4,6 +4,7 @@ import getFetchApi from './services/fetchApi';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
+import Modal from './Modal/Modal';
 // import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
@@ -51,11 +52,14 @@ export class App extends Component {
   };
 
   handleToggleModal = largeImageURL => {
-    console.log(largeImageURL);
+    this.setState(({ showModal }) => ({
+      modalImageURL: largeImageURL,
+      showModal: !showModal,
+    }));
   };
 
   render() {
-    const { images } = this.state;
+    const { images, showModal, modalImageURL } = this.state;
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleSubmit} />
@@ -64,6 +68,9 @@ export class App extends Component {
           onClick={this.handleToggleModal}
         ></ImageGallery>
         <Button></Button>
+        {showModal && (
+          <Modal imgUrl={modalImageURL} toggleModal={this.handleToggleModal} />
+        )}
       </div>
     );
   }
