@@ -67,7 +67,7 @@ export class App extends Component {
           images={images}
           onClick={this.handleToggleModal}
         ></ImageGallery>
-        <Button></Button>
+        <Button onClick={this.getFetchedImg}></Button>
         {showModal && (
           <Modal imgUrl={modalImageURL} toggleModal={this.handleToggleModal} />
         )}
