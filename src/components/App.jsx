@@ -6,7 +6,6 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import { RotatingLines } from 'react-loader-spinner';
-// import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
   state = {
@@ -36,7 +35,7 @@ export class App extends Component {
   getFetchedImg = async () => {
     this.setState({ isLoading: true });
     try {
-      const { page, searchQuarry, totalHits } = this.state;
+      const { page, searchQuarry } = this.state;
       const response = await getFetchApi({
         page: page,
         searchQuarry: searchQuarry,

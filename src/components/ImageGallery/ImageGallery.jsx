@@ -24,4 +24,8 @@ export default class ImageGallery extends Component {
   }
 }
 
-ImageGallery.propTypes = {};
+ImageGallery.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({ webformatURL: PropTypes.string.isRequired })
+  ),
+};

@@ -31,3 +31,8 @@ export default class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  imgUrl: PropTypes.string,
+  toggleModal: PropTypes.func,
+};
