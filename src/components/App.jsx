@@ -5,7 +5,7 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
-import { RotatingLines } from 'react-loader-spinner';
+import Loader from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -81,17 +81,7 @@ export class App extends Component {
         {images.length < totalHits && (
           <Button onClick={this.getFetchedImg}></Button>
         )}
-        {isLoading && (
-          <div className={css.loader}>
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="96"
-              visible={true}
-            />{' '}
-          </div>
-        )}
+        {isLoading && <Loader />}
         {showModal && (
           <Modal imgUrl={modalImageURL} toggleModal={this.handleToggleModal} />
         )}
