@@ -41,9 +41,6 @@ export class App extends Component {
         searchQuarry: searchQuarry,
       });
 
-      console.log(response);
-      console.log(response.totalHits);
-
       this.setState(prevState => ({
         images: [...prevState.images, ...response.hits],
         page: prevState.page + 1,
@@ -66,10 +63,6 @@ export class App extends Component {
   render() {
     const { images, showModal, modalImageURL, totalHits, isLoading } =
       this.state;
-
-    console.log(totalHits);
-    console.log(images.length);
-    console.log(images);
 
     return (
       <div className={css.App}>
